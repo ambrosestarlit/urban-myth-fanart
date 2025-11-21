@@ -146,18 +146,21 @@ body {
     padding: 40px 20px;
 }
 
+/* 親コンテナを横幅いっぱいにして中央寄せしやすくする */
 .title-container {
-    max-width: 1000px;
-    width: 100%;
-    padding: 20px;
+    width: 100%;              /* 必須！これがないと子が中央にならない */
+    text-align: center;       /* 一番簡単で確実な方法 */
+    padding: 20px 0;          /* 上下に余白欲しい場合は適宜 */
 }
 
+/* ロゴ画像自体 */
 .title-logo {
     width: 100%;
+    max-width: 1000px;         /* ここでロゴの最大サイズを決める（PCで見やすいサイズに） */
     height: auto;
-    display: block;
+    display: block;           /* 保険でblockに */
+    margin: 0 auto;           /* text-alignと併用してもOK（より確実） */
 }
-
 /* 子ページのメインコンテンツ */
 .sub-page .main-content {
     background-color: #FFE600;
@@ -566,4 +569,92 @@ html, body {
         padding-top: 70px;
         padding-bottom: 120px;
     }
+}
+
+/* カウンターアニメーション */
+.falling-text {
+    color: white;
+    font-family: 'Zen Kurenaido', 'Noto Sans JP', 'Kosugi Maru', serif;
+    font-size: 1.4em;
+    text-align: center;
+    margin: 40px 0;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+
+    /* 初期状態 */
+    opacity: 0;
+    transform: translateY(-20px);
+    letter-spacing: -1px;        /* ← 最初は少し詰まってる */
+
+    /* アニメーション（1秒待機 + 2.8秒で全部動く） */
+    animation: fallFadeIn 1.5s ease-out 1s forwards;
+  }
+
+  #kai-count {
+    color: #ff3366;
+    font-weight: bold;
+    text-shadow: 0 0 15px #ff0000, 0 0 30px #ff0000;
+  }
+
+  @keyframes fallFadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(-20px);
+      letter-spacing: -1px;      /* 詰まった状態 */
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+      letter-spacing: 3px;       /* 最終的に指定通りの字間 */
+    }
+  }
+
+/* 登場アニメーション */
+.delayed-appear,
+.title-logo,
+.menu-item {
+  opacity: 0;
+  transform: translateY(-20px);
+  animation: fallFadeIn 1.6s ease-out forwards;  /* 同じアニメを再利用 */
+}
+
+/* それぞれの登場タイミング */
+.disclaimer-content {
+  animation-delay: 2.6s;
+}
+.title-logo {
+  animation-delay: 2.4s;
+}
+.menu-item:nth-child(1) { animation-delay: 2.8s; }
+.menu-item:nth-child(2) { animation-delay: 3.0s; }
+.menu-item:nth-child(3) { animation-delay: 3.2s; }
+.menu-item:nth-child(4) { animation-delay: 3.4s; }
+
+/* 戻ってきたときは全部即表示＋アニメなし */
+html.no-entry-animation .falling-text,
+html.no-entry-animation .disclaimer-content,
+html.no-entry-animation .title-logo,
+html.no-entry-animation .menu-item {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  letter-spacing: inherit !important;  /* カウンターは3pxのまま */
+  animation: none !important;
+}
+
+/* カウンター文字だけ字間は3pxのまま即表示 */
+html.no-entry-animation .falling-text {
+  letter-spacing: 3px;
+}
+
+/* 子ページではメニューボタンの登場アニメを完全に無効化 */
+.no-menu-animation .menu-item {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  animation: none !important;
+}
+
+/* 念のためロゴや他の要素もアニメ無効（子ページでは基本アニメいらないよね） */
+.no-menu-animation .title-logo,
+.no-menu-animation .disclaimer-content {
+  opacity: 1;
+  animation: none;
 }

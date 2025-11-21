@@ -43,7 +43,7 @@ window.addEventListener('load', function() {
   人目の怪異のようですね…」
 </div>
 
-        <!-- ② カウンター取得スクリプト（これで子ページ戻りでも絶対失敗しない） -->
+        
         
     </main>
 
@@ -57,23 +57,7 @@ window.addEventListener('load', function() {
         </nav>
     </footer>
 
-    <script>
-          // 即実行（load待たなくてOK＋リトライ付き）
-          (function getCount() {
-            fetch('https://api.countapi.xyz/hit/ambrosestar.github.io-urban-myth-fanart/visitors')
-              .then(res => res.json())
-              .then(data => {
-                document.getElementById('kai-count').textContent = Number(data.value).toLocaleString() + ' ';
-              })
-              .catch(() => {
-                if ((getCount.retry = (getCount.retry || 0) + 1) < 4) {
-                  setTimeout(getCount, 800);
-                } else {
-                  document.getElementById('kai-count').textContent = '■■■';
-                }
-              });
-          })();
-        </script>
+    
 
 </body>
 </html>

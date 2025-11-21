@@ -240,3 +240,18 @@ html.no-entry-animation .falling-text {
 
 /* その他子ページスタイル（必要に応じて） */
 .sub-page .main-content { background-color: #FFE600; padding: 60px 20px; min-height: 500px; }
+
+/* ★これが最後の鍵！！！★ */
+#kai-count {
+  /* 字間アニメを完全に無効化（数字は詰まらずに普通に見える） */
+  animation: none !important;
+  letter-spacing: normal !important;
+  display: inline-block;
+}
+
+/* 数字が出た後も赤く光るのはそのまま */
+#kai-count {
+  color: #ff3366;
+  font-weight: bold;
+  text-shadow: 0 0 15px #ff0000, 0 0 30px #ff0000, 0 0 45px #ff0000;
+}

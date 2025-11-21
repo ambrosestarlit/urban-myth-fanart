@@ -255,3 +255,8 @@ html.no-entry-animation .falling-text {
   font-weight: bold;
   text-shadow: 0 0 15px #ff0000, 0 0 30px #ff0000, 0 0 45px #ff0000;
 }
+
+#kai-count img {
+  filter: drop-shadow(0 0 10px #ff0000) brightness(1.2);  /* 赤く妖しく光る！！ */
+  image-rendering: pixel-art;  /* レトロピクセル感（お好みで） */
+}

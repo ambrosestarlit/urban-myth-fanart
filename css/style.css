@@ -8,74 +8,35 @@
 }
 
 html, body {
-    
     height: 100%;
     margin: 0;
     font-family: 'Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3', Meiryo, メイリオ, sans-serif;
-    overflow-x: hidden;
+    overflow: hidden;           /* 全体スクロール禁止 */
+    background-color: #000000;
 }
 
 body {
     display: flex;
     flex-direction: column;
-    
 }
 
 /* ===================================
-   シェイクボタン
+   シェイクボタン（省略可）
 =================================== */
-.shake-button {
-    display: inline-block;
-    transition: transform 0.1s;
-    cursor: pointer;
-}
-
-    /* 押した瞬間に発動するアニメーション */
-    .shake-button:active {
-        animation: shake 0.5s ease-in-out;
-    }
+.shake-button { display: inline-block; transition: transform 0.1s; cursor: pointer; }
+.shake-button:active { animation: shake 0.5s ease-in-out; }
+.shake-button:hover { transform: scale(1.05); }
 
 @keyframes shake {
-    0% {
-        transform: translate(0px, 0px) rotate(0deg);
-    }
-
-    10% {
-        transform: translate(-2px, 0px) rotate(-2deg);
-    }
-
-    20% {
-        transform: translate(4px, 0px) rotate(3deg);
-    }
-
-    30% {
-        transform: translate(-6px, 0px) rotate(-3deg);
-    }
-
-    40% {
-        transform: translate(6px, 0px) rotate(2deg);
-    }
-
-    50% {
-        transform: translate(-4px, 0px) rotate(-1deg);
-    }
-
-    60% {
-        transform: translate(4px, 0px) rotate(1deg);
-    }
-
-    70% {
-        transform: translate(-2px, 0px) rotate(0deg);
-    }
-
-    100% {
-        transform: translate(0px, 0px) rotate(0deg);
-    }
-}
-
-/* ホバー時にちょっと大きくなる（おまけ） */
-.shake-button:hover {
-    transform: scale(1.05);
+    0% { transform: translate(0px, 0px) rotate(0deg); }
+    10% { transform: translate(-2px, 0px) rotate(-2deg); }
+    20% { transform: translate(4px, 0px) rotate(3deg); }
+    30% { transform: translate(-6px, 0px) rotate(-3deg); }
+    40% { transform: translate(6px, 0px) rotate(2deg); }
+    50% { transform: translate(-4px, 0px) rotate(-1deg); }
+    60% { transform: translate(4px, 0px) rotate(1deg); }
+    70% { transform: translate(-2px, 0px) rotate(0deg); }
+    100% { transform: translate(0px, 0px) rotate(0deg); }
 }
 
 /* ===================================
@@ -88,7 +49,9 @@ body {
     text-align: center;
     width: 100%;
     position: fixed;
-    z-index: 100;
+    top: 0;
+    left: 0;
+    z-index: 1000;
 }
 
 .disclaimer-content {
@@ -107,228 +70,6 @@ body {
     line-height: 1.8;
     color: #cccccc;
 }
-/* ヘッダーの下の白い隙間完全消去 */
-body {
-    background-color: #000000;
-}
-
-.index-page .main-content {
-    background-color: #000000 !important;
-}
-/* ===================================
-   メインコンテンツ
-=================================== */
-.main-content {
-    /* flex:1 は残す（bodyがflex columnの場合） */
-    flex: 1;
-    
-    /* ここが最重要！ calc(100vh - ヘッダー実高さ - フッター実高さ) */
-    height: calc(100vh - 108px - 168px);  /* PC時の実測値 */
-    margin-top: 108px;      /* ヘッダーの実高さ（padding含む） */
-    margin-bottom: 168px;   /* フッターの実高さ（padding含む） */
-    
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    box-sizing: border-box;
-}
-
-/* スマホ用（もっと余裕を持たせる） */
-@media (max-width: 768px) {
-    .main-content {
-        padding-top: 90px;
-        padding-bottom: 220px;     /* ← スマホはここを大きめに！ */
-    }
-}
-
-/* インデックスページのメインコンテンツ */
-.index-page .main-content {
-    background-color: #000000;
-    padding: 40px 20px;
-}
-
-/* 親コンテナを横幅いっぱいにして中央寄せしやすくする */
-.title-container {
-    width: 100%;              /* 必須！これがないと子が中央にならない */
-    text-align: center;       /* 一番簡単で確実な方法 */
-    padding: 20px 0;          /* 上下に余白欲しい場合は適宜 */
-}
-
-/* ロゴ画像自体 */
-.title-logo {
-    width: 100%;
-    max-width: 1000px;         /* ここでロゴの最大サイズを決める（PCで見やすいサイズに） */
-    height: auto;
-    display: block;           /* 保険でblockに */
-    margin: 0 auto;           /* text-alignと併用してもOK（より確実） */
-}
-/* 子ページのメインコンテンツ */
-.sub-page .main-content {
-    background-color: #FFE600;
-    padding: 60px 20px;
-    min-height: 500px;
-}
-
-/* 右上のロゴ透かし */
-.logo-watermark {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 500px;
-    height: 400px;
-    background-image: url('../assets/images/logo.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: top right;
-    opacity: 0.15;
-    pointer-events: none;
-    z-index: 1;
-}
-
-/* コンテンツラッパー */
-.content-wrapper {
-    max-width: 900px;
-    width: 100%;
-    margin: 0 auto;
-    position: relative;
-    z-index: 2;
-    padding: 40px 20px;
-}
-
-.page-title {
-    font-size: 36px;
-    font-weight: bold;
-    color: #000000;
-    margin-bottom: 30px;
-    text-align: center;
-    border-bottom: 3px solid #000000;
-    padding-bottom: 15px;
-}
-
-/* ===================================
-   SNS風投稿デザイン
-=================================== */
-.sns-post-container {
-    display: flex;
-    gap: 12px;
-    margin-bottom: 20px;
-    align-items: flex-start;
-}
-
-.user-icon {
-    width: 50px;
-    height: 50px;
-    background: linear-gradient(135deg, #333333, #666666);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-    flex-shrink: 0;
-    border: 2px solid #000000;
-}
-
-.sns-post {
-    flex: 1;
-    background-color: #ffffff;
-    border: 2px solid #333333;
-    border-radius: 12px;
-    padding: 16px 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    transition: all 0.3s ease;
-}
-
-.sns-post:hover {
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-    transform: translateY(-2px);
-}
-
-.post-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 12px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #e0e0e0;
-}
-
-.username {
-    font-size: 16px;
-    font-weight: bold;
-    color: #000000;
-}
-
-.timestamp {
-    font-size: 13px;
-    color: #666666;
-}
-
-.post-content {
-    font-size: 15px;
-    line-height: 1.8;
-    color: #1a1a1a;
-    margin-bottom: 12px;
-}
-
-.post-content p {
-    margin-bottom: 12px;
-}
-
-.post-content h2 {
-    font-size: 18px;
-    font-weight: bold;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    color: #000000;
-    border-left: 4px solid #FFE600;
-    padding-left: 12px;
-}
-
-.post-content p:last-child {
-    margin-bottom: 0;
-}
-
-.post-actions {
-    display: flex;
-    gap: 24px;
-    justify-content: flex-end;
-    align-items: center;
-    padding-top: 8px;
-}
-
-.action-icon {
-    width: auto;
-    height: auto;
-    image-rendering: pixelated;
-    image-rendering: -moz-crisp-edges;
-    image-rendering: crisp-edges;
-    cursor: pointer;
-    transition: opacity 0.2s ease;
-}
-
-.action-icon:hover {
-    opacity: 0.7;
-}
-
-/* 旧デザインのクラスは削除されたが、互換性のため残す */
-.content-text {
-    font-size: 16px;
-    line-height: 2;
-    color: #000000;
-}
-
-.content-text p {
-    margin-bottom: 20px;
-}
-
-.content-text h2 {
-    font-size: 24px;
-    font-weight: bold;
-    margin-top: 30px;
-    margin-bottom: 15px;
-    color: #000000;
-    border-left: 5px solid #000000;
-    padding-left: 15px;
-}
 
 /* ===================================
    フッター（メニュー）
@@ -338,7 +79,9 @@ body {
     padding: 40px 20px;
     width: 100%;
     position: fixed;
-    z-index: 100;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
 }
 
 .main-menu {
@@ -346,8 +89,6 @@ body {
     justify-content: center;
     align-items: center;
     gap: 60px;
-    max-width: auto;
-    margin: 0 auto;
     flex-wrap: wrap;
 }
 
@@ -358,309 +99,144 @@ body {
     text-decoration: none;
     color: #FFE600;
     transition: all 0.3s ease;
-    position: relative;
 }
 
-.menu-item:hover {
-    transform: translateY(-5px);
-}
-
-.menu-item.active::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80%;
-    height: 3px;
-    background-color: #FFE600;
-}
+.menu-item:hover { transform: translateY(-5px); }
 
 .menu-icon {
-    width: 326px;          /* PCではこのサイズ */
-    height: auto;          /* 高さは自動で比率維持 */
-    max-width: 100%;       /* 画面幅より大きくなったら自動縮小 ← これが超重要！ */
-    object-fit: contain;   /* 余白ができても画像が歪まない */
-    display: block;        /* 余計な隙間が出ないように */
-}
-
-.menu-text {
-    display: none;
-}
-
-/* トップへ戻るボタン */
-.back-to-top {
+    width: 326px;
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
     display: block;
-    text-align: center;
-    margin-top: 30px;
-    color: #FFE600;
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: bold;
-    transition: all 0.3s ease;
-    padding: 10px 30px;
-    border: 2px solid #FFE600;
-    border-radius: 5px;
-    max-width: 200px;
-    margin: 30px auto 0;
-}
-
-.back-to-top:hover {
-    background-color: #FFE600;
-    color: #000000;
 }
 
 /* ===================================
-   レスポンシブデザイン
+   メインコンテンツ
 =================================== */
-@media (max-width: 768px) {
-    .disclaimer-header { padding: 15px 20px; }
-    .menu-footer       { padding: 20px 15px; }
-    
-    .main-content {
-        margin-top: 88px;   /* 15px×2 + 文字高さ分 ≈88px */
-        margin-bottom: 130px; /* 20px×2 + アイコン120px ≈130px */
-        height: calc(100vh - 88px - 130px);
-    }
-}
-
-@media (max-width: 480px) {
-    .main-content {
-        margin-top: 80px;
-        margin-bottom: 120px;
-        height: calc(100vh - 80px - 120px);
-    }
-}
-    
-    /* フッター */
-    .main-menu {
-        gap: 20px;
-    }
-    
-    .menu-icon {
-        width: auto;
-        height: auto;
-    }
-
-/* ===================================
-   アニメーション効果
-=================================== */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes slideInLeft {
-    from {
-        opacity: 0;
-        transform: translateX(-30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-.title-container {
-    animation: fadeIn 1s ease-out;
-}
-
-.content-wrapper {
-    animation: fadeIn 0.8s ease-out;
-}
-
-.sns-post-container {
-    animation: slideInLeft 0.6s ease-out;
-    opacity: 0;
-    animation-fill-mode: forwards;
-}
-
-.sns-post-container:nth-child(2) { animation-delay: 0.1s; }
-.sns-post-container:nth-child(3) { animation-delay: 0.2s; }
-.sns-post-container:nth-child(4) { animation-delay: 0.3s; }
-.sns-post-container:nth-child(5) { animation-delay: 0.4s; }
-
-.menu-item {
-    animation: fadeIn 0.5s ease-out;
-}
-
-.menu-item:nth-child(1) { animation-delay: 0.1s; }
-.menu-item:nth-child(2) { animation-delay: 0.2s; }
-.menu-item:nth-child(3) { animation-delay: 0.3s; }
-.menu-item:nth-child(4) { animation-delay: 0.4s; }
-
-/* ===================================
-   スクロール関係
-   ヘッダーの高さ/padding-top の値
-80px 〜 120px
-フッターの高さ/padding-bottom の値
-130px 〜 180px
-スマホでの見やすさ/メディアクエリ内の値
-今のままでOK
-
-┌────────────────────────────┐  ← 固定（常に表示）
-│ 免責事項ヘッダー                 │
-├────────────────────────────┤
-│                            │
-│     ロゴやコンテンツ         │
-│     （ここだけスクロール！）   │
-│                            │
-│                            │
-└────────────────────────────┘
-┌────────────────────────────┐  ← 固定（常に表示）
-│ Attention / About / Song / Anime │
-└────────────────────────────┘
-=================================== */
-/* 全体のスクロールを禁止 */
-html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;           /* ← これでページ全体のスクロールがなくなる */
-}
-
-/* ヘッダーとフッターを固定 */
-.disclaimer-header,
-.menu-footer {
-    position: fixed;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-    background-color: #000000;
-}
-
-.disclaimer-header {
-    top: 0;
-    padding: 20px 30px;
-}
-
-.menu-footer {
-    bottom: 0;
-    padding: 40px 20px;
-}
-
-/* メインコンテンツを「スクロールできる中央ペイン」に変更 */
 .main-content {
     flex: 1;
     height: 100vh;
-    padding-top: 100px;         /* ヘッダーの高さ分（免責事項の高さに合わせて調整） */
-    padding-bottom: 160px;      /* フッターの高さ分（メニューの高さに合わせて調整） */
-    overflow-y: auto;           /* ← ここだけスクロールできる！ */
-    -webkit-overflow-scrolling: touch; /* スマホでスムーズ */
+    padding-top: 100px;     /* ヘッダー分 */
+    padding-bottom: 160px;  /* フッター分 */
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
     box-sizing: border-box;
 }
 
-/* スマホ対応：paddingを小さく */
+.index-page .main-content {
+    background-color: #000000;
+    padding: 40px 20px;
+}
+
+.title-container { width: 100%; text-align: center; padding: 20px 0; }
+.title-logo { width: 100%; max-width: 1000px; height: auto; display: block; margin: 0 auto; }
+
+/* スマホ調整 */
 @media (max-width: 768px) {
-    .main-content {
-        padding-top: 80px;      /* ヘッダー高さを少し縮める */
-        padding-bottom: 130px;  /* フッター高さを少し縮める */
-    }
+    .disclaimer-header { padding: 15px 20px; }
+    .menu-footer       { padding: 20px 15px; }
+    .main-content { padding-top: 80px; padding-bottom: 130px; }
 }
-
 @media (max-width: 480px) {
-    .main-content {
-        padding-top: 70px;
-        padding-bottom: 120px;
+    .main-content { padding-top: 70px; padding-bottom: 120px; }
+}
+
+/* ===================================
+   カウンターアニメーション（統合済み・最終版）
+=================================== */
+@keyframes fallFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+        letter-spacing: -1px;
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+        letter-spacing: 3px;
     }
 }
 
-/* カウンターアニメーション */
 .falling-text {
     color: white;
     font-family: 'Zen Kurenaido', 'Noto Sans JP', 'Kosugi Maru', serif;
     font-size: 1.4em;
     text-align: center;
     margin: 40px 0;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+
+    /* 白い浮遊影（幽霊感） */
+    text-shadow: 
+        0 0 12px rgba(255, 255, 255, 0.35),
+        0 0 20px rgba(255, 255, 255, 0.2),
+        3px 3px 6px rgba(255, 255, 255, 0.25);
 
     /* 初期状態 */
     opacity: 0;
     transform: translateY(-20px);
-    letter-spacing: -1px;        /* ← 最初は少し詰まってる */
+    letter-spacing: -1px;
 
-    /* アニメーション（1秒待機 + 2.8秒で全部動く） */
+    /* 1秒待機 + 1.5秒で出現 */
     animation: fallFadeIn 1.5s ease-out 1s forwards;
-  }
-  .falling-text {
-  text-shadow: 
-    0 0 12px rgba(255, 255, 255, 0.35),
-    0 0 20px rgba(255, 255, 255, 0.2),
-    3px 3px 6px rgba(255, 255, 255, 0.25);  /* 少し浮いてる感じに */
 }
 
-  #kai-count {
+#kai-count {
     color: #ff3366;
     font-weight: bold;
-    text-shadow: 0 0 15px #ff0000, 0 0 30px #ff0000;
-  }
+    text-shadow: 0 0 15px #ff0000, 0 0 30px #ff0000, 0 0 45px #ff0000;
+}
 
-  @keyframes fallFadeIn {
-    0% {
-      opacity: 0;
-      transform: translateY(-20px);
-      letter-spacing: -1px;      /* 詰まった状態 */
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-      letter-spacing: 3px;       /* 最終的に指定通りの字間 */
-    }
-  }
-
-/* 登場アニメーション */
+/* ===================================
+   その他要素の登場アニメ（fallFadeInを再利用）
+=================================== */
 .delayed-appear,
 .title-logo,
 .menu-item {
-  opacity: 0;
-  transform: translateY(-20px);
-  animation: fallFadeIn 1.6s ease-out forwards;  /* 同じアニメを再利用 */
+    opacity: 0;
+    transform: translateY(-20px);
+    animation: fallFadeIn 1.6s ease-out forwards;
 }
 
-/* それぞれの登場タイミング */
-.disclaimer-content {
-  animation-delay: 2.6s;
-}
-.title-logo {
-  animation-delay: 2.4s;
-}
+.disclaimer-content { animation-delay: 2.6s; }
+.title-logo         { animation-delay: 2.4s; }
 .menu-item:nth-child(1) { animation-delay: 2.8s; }
 .menu-item:nth-child(2) { animation-delay: 3.0s; }
 .menu-item:nth-child(3) { animation-delay: 3.2s; }
 .menu-item:nth-child(4) { animation-delay: 3.4s; }
 
-/* 戻ってきたときは全部即表示＋アニメなし */
+/* ===================================
+   子ページから戻ったとき（初回以外）は全アニメ無効
+=================================== */
 html.no-entry-animation .falling-text,
+html.no-entry-animation .delayed-appear,
 html.no-entry-animation .disclaimer-content,
 html.no-entry-animation .title-logo,
 html.no-entry-animation .menu-item {
-  opacity: 1 !important;
-  transform: translateY(0) !important;
-  letter-spacing: inherit !important;  /* カウンターは3pxのまま */
-  animation: none !important;
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    letter-spacing: inherit !important;
+    animation: none !important;
 }
 
-/* カウンター文字だけ字間は3pxのまま即表示 */
 html.no-entry-animation .falling-text {
-  letter-spacing: 3px;
+    letter-spacing: 3px !important;
 }
 
-/* 子ページではメニューボタンの登場アニメを完全に無効化 */
-.no-menu-animation .menu-item {
-  opacity: 1 !important;
-  transform: translateY(0) !important;
-  animation: none !important;
-}
-
-/* 念のためロゴや他の要素もアニメ無効（子ページでは基本アニメいらないよね） */
+/* ===================================
+   子ページ自体ではメニューアニメ完全無効
+=================================== */
+.no-menu-animation .menu-item,
 .no-menu-animation .title-logo,
 .no-menu-animation .disclaimer-content {
-  opacity: 1;
-  animation: none;
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    animation: none !important;
 }
+
+.no-menu-animation .disclaimer-content,
+.no-menu-animation .disclaimer-content * {
+    letter-spacing: normal !important;
+}
+
+/* その他子ページスタイル（必要に応じて） */
+.sub-page .main-content { background-color: #FFE600; padding: 60px 20px; min-height: 500px; }

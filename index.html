@@ -6,15 +6,17 @@
     <title>とある調査員のナゾトキ奇譚 - Case-α 帰ってきた花嫁</title>
     <link rel="stylesheet" href="css/style.css">
 
-    <!-- ここから<head>内に追加（アニメ無効＋カウンター安定化の最終版） -->
     <script>
-      // ① 子ページから戻ったときは全アニメーション無効＋URLクリーン
-      if (location.search.includes('from=')) {
-        document.documentElement.classList.add('no-entry-animation');
-        // URLの?from=subを即消去（fetchが失敗しないように）
-        history.replaceState(null, null, location.pathname);
-      }
-    </script>
+if (sessionStorage.getItem('skipEntryAnim') === 'true') {
+    document.documentElement.classList.add('no-entry-animation');
+}
+
+// ページ読み込み完了後にフラグを立てる（次回以降スキップ）
+window.addEventListener('load', function() {
+    sessionStorage.setItem('skipEntryAnim', 'true');
+});
+</script>
+    
     <!-- ここまで追加 -->
 </head>
 <body class="index-page">

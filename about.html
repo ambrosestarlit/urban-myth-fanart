@@ -42,8 +42,10 @@
 
             
          <div class="back-to-top-wrapper">
-            <a href="index.html?from=sub" class="back-to-top">トップへ戻る</a>
-        </div>
+    <a href="index.html" class="back-to-top sub-page-back" id="backToTop">
+        トップへ戻る
+    </a>
+</div>
 
             
             
@@ -67,5 +69,17 @@
             </a>
         </nav>
         </footer>
+        <script>
+document.getElementById('backToTop').addEventListener('click', function(e) {
+    // 1. URLを完全にクリーンにする（クエリ文字列を消す）
+    history.replaceState(null, null, 'index.html');
+    
+    // 2. 2回目以降はエントリーアニメをスキップするフラグを立てる
+    localStorage.setItem('skipEntryAnim', 'true');
+    
+    // 3. そのまま遷移（hrefで飛ぶのでreturn true的な動作は不要）
+});
+</script>
 </body>
+
 </html>

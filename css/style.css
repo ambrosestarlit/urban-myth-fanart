@@ -1,0 +1,603 @@
+/* ===================================
+   リセット・基本設定
+=================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    font-family: 'Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3', Meiryo, メイリオ, sans-serif;
+    overflow-x: hidden;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* ===================================
+   ヘッダー（免責事項）
+=================================== */
+.disclaimer-header {
+    background-color: #000000;
+    color: #ffffff;
+    padding: 20px 30px;
+    text-align: center;
+    width: 100%;
+    position: relative;
+    z-index: 100;
+}
+
+.disclaimer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.disclaimer-content .jp-text {
+    font-size: 14px;
+    line-height: 1.8;
+    margin-bottom: 8px;
+}
+
+.disclaimer-content .en-text {
+    font-size: 12px;
+    line-height: 1.8;
+    color: #cccccc;
+}
+
+/* ===================================
+   メインコンテンツ
+=================================== */
+.main-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+}
+
+/* インデックスページのメインコンテンツ */
+.index-page .main-content {
+    background-color: #000000;
+    padding: 40px 20px;
+}
+
+.title-container {
+    max-width: 1000px;
+    width: 100%;
+    padding: 20px;
+}
+
+.title-logo {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* 子ページのメインコンテンツ */
+.sub-page .main-content {
+    background-color: #FFE600;
+    padding: 60px 20px;
+    min-height: 500px;
+}
+
+/* 右上のロゴ透かし */
+.logo-watermark {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 500px;
+    height: 400px;
+    background-image: url('../assets/images/logo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: top right;
+    opacity: 0.15;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* コンテンツラッパー */
+.content-wrapper {
+    max-width: 900px;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+    padding: 40px 20px;
+}
+
+.page-title {
+    font-size: 36px;
+    font-weight: bold;
+    color: #000000;
+    margin-bottom: 30px;
+    text-align: center;
+    border-bottom: 3px solid #000000;
+    padding-bottom: 15px;
+}
+
+/* ===================================
+   SNS風投稿デザイン
+=================================== */
+.sns-post-container {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+    align-items: flex-start;
+}
+
+.user-icon {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #333333, #666666);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    flex-shrink: 0;
+    border: 2px solid #000000;
+}
+
+.sns-post {
+    flex: 1;
+    background-color: #ffffff;
+    border: 2px solid #333333;
+    border-radius: 12px;
+    padding: 16px 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.sns-post:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+    transform: translateY(-2px);
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.username {
+    font-size: 16px;
+    font-weight: bold;
+    color: #000000;
+}
+
+.timestamp {
+    font-size: 13px;
+    color: #666666;
+}
+
+.post-content {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #1a1a1a;
+    margin-bottom: 12px;
+}
+
+.post-content p {
+    margin-bottom: 12px;
+}
+
+.post-content h2 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: #000000;
+    border-left: 4px solid #FFE600;
+    padding-left: 12px;
+}
+
+.post-content p:last-child {
+    margin-bottom: 0;
+}
+
+.post-actions {
+    display: flex;
+    gap: 24px;
+    justify-content: flex-end;
+    align-items: center;
+    padding-top: 8px;
+}
+
+.action-icon {
+    width: auto;
+    height: auto;
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.action-icon:hover {
+    opacity: 0.7;
+}
+
+/* 旧デザインのクラスは削除されたが、互換性のため残す */
+.content-text {
+    font-size: 16px;
+    line-height: 2;
+    color: #000000;
+}
+
+.content-text p {
+    margin-bottom: 20px;
+}
+
+.content-text h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    color: #000000;
+    border-left: 5px solid #000000;
+    padding-left: 15px;
+}
+
+/* ===================================
+   フッター（メニュー）
+=================================== */
+.menu-footer {
+    background-color: #000000;
+    padding: 40px 20px;
+    width: 100%;
+    position: relative;
+    z-index: 100;
+}
+
+.main-menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+}
+
+.menu-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: #FFE600;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.menu-item:hover {
+    transform: translateY(-5px);
+}
+
+.menu-item.active::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 3px;
+    background-color: #FFE600;
+}
+
+.menu-icon {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+}
+
+.menu-text {
+    display: none;
+}
+
+/* トップへ戻るボタン */
+.back-to-top {
+    display: block;
+    text-align: center;
+    margin-top: 30px;
+    color: #FFE600;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    padding: 10px 30px;
+    border: 2px solid #FFE600;
+    border-radius: 5px;
+    max-width: 200px;
+    margin: 30px auto 0;
+}
+
+.back-to-top:hover {
+    background-color: #FFE600;
+    color: #000000;
+}
+
+/* ===================================
+   レスポンシブデザイン
+=================================== */
+@media (max-width: 768px) {
+    /* ヘッダー */
+    .disclaimer-header {
+        padding: 15px 20px;
+    }
+    
+    .disclaimer-content .jp-text {
+        font-size: 12px;
+    }
+    
+    .disclaimer-content .en-text {
+        font-size: 11px;
+    }
+    
+    /* メインコンテンツ */
+    .title-container {
+        padding: 10px;
+    }
+    
+    .sub-page .main-content {
+        padding: 40px 15px;
+    }
+    
+    .logo-watermark {
+        width: 300px;
+        height: 250px;
+        opacity: 0.1;
+    }
+    
+    .content-wrapper {
+        padding: 25px 15px;
+    }
+    
+    .page-title {
+        font-size: 28px;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+    }
+    
+    /* SNS投稿 */
+    .sns-post-container {
+        gap: 10px;
+        margin-bottom: 16px;
+    }
+    
+    .user-icon {
+        width: 45px;
+        height: 45px;
+        font-size: 20px;
+    }
+    
+    .sns-post {
+        padding: 14px 16px;
+    }
+    
+    .post-header {
+        gap: 10px;
+        margin-bottom: 10px;
+        padding-bottom: 8px;
+    }
+    
+    .username {
+        font-size: 15px;
+    }
+    
+    .timestamp {
+        font-size: 12px;
+    }
+    
+    .post-content {
+        font-size: 14px;
+        line-height: 1.7;
+        margin-bottom: 10px;
+    }
+    
+    .post-content h2 {
+        font-size: 17px;
+        margin-top: 8px;
+        margin-bottom: 8px;
+    }
+    
+    .post-actions {
+        gap: 20px;
+        padding-top: 6px;
+    }
+    
+    .content-text {
+        font-size: 14px;
+        line-height: 1.8;
+    }
+    
+    .content-text h2 {
+        font-size: 20px;
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+    
+    /* フッター */
+    .menu-footer {
+        padding: 20px 15px;
+    }
+    
+    .main-menu {
+        gap: 30px;
+    }
+    
+    .menu-icon {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .back-to-top {
+        font-size: 13px;
+        padding: 8px 20px;
+        margin-top: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    /* ヘッダー */
+    .disclaimer-header {
+        padding: 12px 15px;
+    }
+    
+    .disclaimer-content .jp-text {
+        font-size: 11px;
+        line-height: 1.6;
+    }
+    
+    .disclaimer-content .en-text {
+        font-size: 10px;
+        line-height: 1.6;
+    }
+    
+    /* メインコンテンツ */
+    .sub-page .main-content {
+        padding: 30px 10px;
+    }
+    
+    .logo-watermark {
+        width: 200px;
+        height: 150px;
+    }
+    
+    .content-wrapper {
+        padding: 20px 10px;
+    }
+    
+    .page-title {
+        font-size: 24px;
+    }
+    
+    /* SNS投稿 */
+    .sns-post-container {
+        gap: 8px;
+        margin-bottom: 14px;
+    }
+    
+    .user-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+    }
+    
+    .sns-post {
+        padding: 12px 14px;
+    }
+    
+    .post-header {
+        gap: 8px;
+        margin-bottom: 8px;
+        padding-bottom: 6px;
+    }
+    
+    .username {
+        font-size: 14px;
+    }
+    
+    .timestamp {
+        font-size: 11px;
+    }
+    
+    .post-content {
+        font-size: 13px;
+        line-height: 1.6;
+        margin-bottom: 8px;
+    }
+    
+    .post-content h2 {
+        font-size: 16px;
+        margin-top: 6px;
+        margin-bottom: 6px;
+        padding-left: 10px;
+    }
+    
+    .post-actions {
+        gap: 16px;
+        padding-top: 4px;
+    }
+    
+    .content-text {
+        font-size: 13px;
+    }
+    
+    .content-text h2 {
+        font-size: 18px;
+    }
+    
+    /* フッター */
+    .main-menu {
+        gap: 20px;
+    }
+    
+    .menu-icon {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+/* ===================================
+   アニメーション効果
+=================================== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.title-container {
+    animation: fadeIn 1s ease-out;
+}
+
+.content-wrapper {
+    animation: fadeIn 0.8s ease-out;
+}
+
+.sns-post-container {
+    animation: slideInLeft 0.6s ease-out;
+    opacity: 0;
+    animation-fill-mode: forwards;
+}
+
+.sns-post-container:nth-child(2) { animation-delay: 0.1s; }
+.sns-post-container:nth-child(3) { animation-delay: 0.2s; }
+.sns-post-container:nth-child(4) { animation-delay: 0.3s; }
+.sns-post-container:nth-child(5) { animation-delay: 0.4s; }
+
+.menu-item {
+    animation: fadeIn 0.5s ease-out;
+}
+
+.menu-item:nth-child(1) { animation-delay: 0.1s; }
+.menu-item:nth-child(2) { animation-delay: 0.2s; }
+.menu-item:nth-child(3) { animation-delay: 0.3s; }
+.menu-item:nth-child(4) { animation-delay: 0.4s; }

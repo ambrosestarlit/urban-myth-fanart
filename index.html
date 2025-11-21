@@ -5,11 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>とある調査員のナゾトキ奇譚 - Case-α 帰ってきた花嫁</title>
     <link rel="stylesheet" href="css/style.css">
-    <script>
-  // URLに ?from=sub などが付いていたらアニメ全部キャンセル
+<script>
+  // 子ページから戻ったときでもカウンターを取れるように、?from=sub を一時的に消す
   if (location.search.includes('from=')) {
-    document.documentElement.classList.add('no-entry-animation');
+    // URLをきれいにしてリロード（1回だけ）
+    history.replaceState(null, null, location.pathname);
   }
+
+  // カウンター取得（これで確実に通る）
+  fetch('https://api.countapi.xyz/hit/ambrosestar.github.io-urban-myth-fanart/visitors')
+    .then(res => res.json())
+    .then(data => {
+      const count = data.value;
+      document.getElementById('kai-count').textContent = count.toLocaleString() + ' ';
+    })
+    .catch(err => {
+      console.error('カウンター取得失敗:', err);
+      document.getElementById('kai-count').textContent = '無数の';  // 本当に失敗したときだけ無数の
+    });
 </script>
 </head>
 <body class="index-page">

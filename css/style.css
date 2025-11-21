@@ -8,8 +8,9 @@
 }
 
 html, body {
-    width: 100%;
+    
     height: 100%;
+    margin: 0;
     font-family: 'Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3', Meiryo, メイリオ, sans-serif;
     overflow-x: hidden;
 }
@@ -80,15 +81,14 @@ body {
 /* ===================================
    ヘッダー（免責事項）
 =================================== */
-/* ヘッダー固定 */
 .disclaimer-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background: #000;
-    z-index: 1000;
+    background-color: #000000;
+    color: #ffffff;
     padding: 20px 30px;
+    text-align: center;
+    width: 100%;
+    position: fixed;
+    z-index: 100;
 }
 
 .disclaimer-content {
@@ -107,23 +107,29 @@ body {
     line-height: 1.8;
     color: #cccccc;
 }
+/* ヘッダーの下の白い隙間完全消去 */
+body {
+    background-color: #000000;
+}
 
+.index-page .main-content {
+    background-color: #000000 !important;
+}
 /* ===================================
    メインコンテンツ
 =================================== */
-/* ★これが最重要！中央だけスクロール＋フッターに絶対隠れない★ */
 .main-content {
+    /* flex:1 は残す（bodyがflex columnの場合） */
     flex: 1;
+    
+    /* ここが最重要！ calc(100vh - ヘッダー実高さ - フッター実高さ) */
+    height: calc(100vh - 108px - 168px);  /* PC時の実測値 */
+    margin-top: 108px;      /* ヘッダーの実高さ（padding含む） */
+    margin-bottom: 168px;   /* フッターの実高さ（padding含む） */
+    
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    
-    /* ヘッダーとフッターの「実際の高さ」を正確に避ける */
-    padding-top: 110px !important;     /* 免責ヘッダーの実高さ + 余裕 */
-    padding-bottom: 180px !important;  /* フッターメニューの実高さ + 余裕 */
-    
-    /* さらに安全装置：calc + env() でどんな画面でも完璧に */
-    padding-top: max(110px, env(safe-area-inset-top, 0px));
-    padding-bottom: max(180px, calc(180px + env(safe-area-inset-bottom)));
+    box-sizing: border-box;
 }
 
 /* スマホ用（もっと余裕を持たせる） */
@@ -324,15 +330,12 @@ body {
 /* ===================================
    フッター（メニュー）
 =================================== */
-/* フッター固定 */
 .menu-footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: #000;
-    z-index: 1000;
+    background-color: #000000;
     padding: 40px 20px;
+    width: 100%;
+    position: fixed;
+    z-index: 100;
 }
 
 .main-menu {
@@ -408,212 +411,23 @@ body {
    レスポンシブデザイン
 =================================== */
 @media (max-width: 768px) {
-    /* ヘッダー */
-    .disclaimer-header {
-        padding: 15px 20px;
-    }
+    .disclaimer-header { padding: 15px 20px; }
+    .menu-footer       { padding: 20px 15px; }
     
-    .disclaimer-content .jp-text {
-        font-size: 12px;
-    }
-    
-    .disclaimer-content .en-text {
-        font-size: 11px;
-    }
-    
-    /* メインコンテンツ */
-    .title-container {
-        padding: 10px;
-    }
-    
-    .sub-page .main-content {
-        padding: 40px 15px;
-    }
-    
-    .logo-watermark {
-        width: 300px;
-        height: 250px;
-        opacity: 0.1;
-    }
-    
-    .content-wrapper {
-        padding: 25px 15px;
-    }
-    
-    .page-title {
-        font-size: 28px;
-        margin-bottom: 20px;
-        padding-bottom: 10px;
-    }
-    
-    /* SNS投稿 */
-    .sns-post-container {
-        gap: 10px;
-        margin-bottom: 16px;
-    }
-    
-    .user-icon {
-        width: 45px;
-        height: 45px;
-        font-size: 20px;
-    }
-    
-    .sns-post {
-        padding: 14px 16px;
-    }
-    
-    .post-header {
-        gap: 10px;
-        margin-bottom: 10px;
-        padding-bottom: 8px;
-    }
-    
-    .username {
-        font-size: 15px;
-    }
-    
-    .timestamp {
-        font-size: 12px;
-    }
-    
-    .post-content {
-        font-size: 14px;
-        line-height: 1.7;
-        margin-bottom: 10px;
-    }
-    
-    .post-content h2 {
-        font-size: 17px;
-        margin-top: 8px;
-        margin-bottom: 8px;
-    }
-    
-    .post-actions {
-        gap: 20px;
-        padding-top: 6px;
-    }
-    
-    .content-text {
-        font-size: 14px;
-        line-height: 1.8;
-    }
-    
-    .content-text h2 {
-        font-size: 20px;
-        margin-top: 20px;
-        margin-bottom: 10px;
-    }
-    
-    /* フッター */
-    .menu-footer {
-        padding: 20px 15px;
-    }
-    
-    .main-menu {
-        gap: 30px;
-    }
-    
-    .menu-icon {
-        width: 120px;
-        height: 120px;
-    }
-    
-    .back-to-top {
-        font-size: 13px;
-        padding: 8px 20px;
-        margin-top: 20px;
+    .main-content {
+        margin-top: 88px;   /* 15px×2 + 文字高さ分 ≈88px */
+        margin-bottom: 130px; /* 20px×2 + アイコン120px ≈130px */
+        height: calc(100vh - 88px - 130px);
     }
 }
 
 @media (max-width: 480px) {
-    /* ヘッダー */
-    .disclaimer-header {
-        padding: 12px 15px;
+    .main-content {
+        margin-top: 80px;
+        margin-bottom: 120px;
+        height: calc(100vh - 80px - 120px);
     }
-    
-    .disclaimer-content .jp-text {
-        font-size: 11px;
-        line-height: 1.6;
-    }
-    
-    .disclaimer-content .en-text {
-        font-size: 10px;
-        line-height: 1.6;
-    }
-    
-    /* メインコンテンツ */
-    .sub-page .main-content {
-        padding: 30px 10px;
-    }
-    
-    .logo-watermark {
-        width: 200px;
-        height: 150px;
-    }
-    
-    .content-wrapper {
-        padding: 20px 10px;
-    }
-    
-    .page-title {
-        font-size: 24px;
-    }
-    
-    /* SNS投稿 */
-    .sns-post-container {
-        gap: 8px;
-        margin-bottom: 14px;
-    }
-    
-    .user-icon {
-        width: 40px;
-        height: 40px;
-        font-size: 18px;
-    }
-    
-    .sns-post {
-        padding: 12px 14px;
-    }
-    
-    .post-header {
-        gap: 8px;
-        margin-bottom: 8px;
-        padding-bottom: 6px;
-    }
-    
-    .username {
-        font-size: 14px;
-    }
-    
-    .timestamp {
-        font-size: 11px;
-    }
-    
-    .post-content {
-        font-size: 13px;
-        line-height: 1.6;
-        margin-bottom: 8px;
-    }
-    
-    .post-content h2 {
-        font-size: 16px;
-        margin-top: 6px;
-        margin-bottom: 6px;
-        padding-left: 10px;
-    }
-    
-    .post-actions {
-        gap: 16px;
-        padding-top: 4px;
-    }
-    
-    .content-text {
-        font-size: 13px;
-    }
-    
-    .content-text h2 {
-        font-size: 18px;
-    }
+}
     
     /* フッター */
     .main-menu {
@@ -621,10 +435,9 @@ body {
     }
     
     .menu-icon {
-        width: 100px;
-        height: 100px;
+        width: auto;
+        height: auto;
     }
-}
 
 /* ===================================
    アニメーション効果

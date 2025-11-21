@@ -17,7 +17,7 @@ html, body {
 body {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    
 }
 
 /* ===================================
@@ -80,14 +80,15 @@ body {
 /* ===================================
    ヘッダー（免責事項）
 =================================== */
+/* ヘッダー固定 */
 .disclaimer-header {
-    background-color: #000000;
-    color: #ffffff;
-    padding: 20px 30px;
-    text-align: center;
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    position: relative;
-    z-index: 100;
+    background: #000;
+    z-index: 1000;
+    padding: 20px 30px;
 }
 
 .disclaimer-content {
@@ -110,13 +111,27 @@ body {
 /* ===================================
    メインコンテンツ
 =================================== */
+/* ★これが最重要！中央だけスクロール＋フッターに絶対隠れない★ */
 .main-content {
     flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    width: 100%;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    
+    /* ヘッダーとフッターの「実際の高さ」を正確に避ける */
+    padding-top: 110px !important;     /* 免責ヘッダーの実高さ + 余裕 */
+    padding-bottom: 180px !important;  /* フッターメニューの実高さ + 余裕 */
+    
+    /* さらに安全装置：calc + env() でどんな画面でも完璧に */
+    padding-top: max(110px, env(safe-area-inset-top, 0px));
+    padding-bottom: max(180px, calc(180px + env(safe-area-inset-bottom)));
+}
+
+/* スマホ用（もっと余裕を持たせる） */
+@media (max-width: 768px) {
+    .main-content {
+        padding-top: 90px;
+        padding-bottom: 220px;     /* ← スマホはここを大きめに！ */
+    }
 }
 
 /* インデックスページのメインコンテンツ */
@@ -309,12 +324,15 @@ body {
 /* ===================================
    フッター（メニュー）
 =================================== */
+/* フッター固定 */
 .menu-footer {
-    background-color: #000000;
-    padding: 40px 20px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
     width: 100%;
-    position: relative;
-    z-index: 100;
+    background: #000;
+    z-index: 1000;
+    padding: 40px 20px;
 }
 
 .main-menu {
@@ -322,7 +340,7 @@ body {
     justify-content: center;
     align-items: center;
     gap: 60px;
-    max-width: 1200px;
+    max-width: auto;
     margin: 0 auto;
     flex-wrap: wrap;
 }
@@ -660,3 +678,79 @@ body {
 .menu-item:nth-child(2) { animation-delay: 0.2s; }
 .menu-item:nth-child(3) { animation-delay: 0.3s; }
 .menu-item:nth-child(4) { animation-delay: 0.4s; }
+
+/* ===================================
+   スクロール関係
+   ヘッダーの高さ/padding-top の値
+80px 〜 120px
+フッターの高さ/padding-bottom の値
+130px 〜 180px
+スマホでの見やすさ/メディアクエリ内の値
+今のままでOK
+
+┌────────────────────────────┐  ← 固定（常に表示）
+│ 免責事項ヘッダー                 │
+├────────────────────────────┤
+│                            │
+│     ロゴやコンテンツ         │
+│     （ここだけスクロール！）   │
+│                            │
+│                            │
+└────────────────────────────┘
+┌────────────────────────────┐  ← 固定（常に表示）
+│ Attention / About / Song / Anime │
+└────────────────────────────┘
+=================================== */
+/* 全体のスクロールを禁止 */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;           /* ← これでページ全体のスクロールがなくなる */
+}
+
+/* ヘッダーとフッターを固定 */
+.disclaimer-header,
+.menu-footer {
+    position: fixed;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: #000000;
+}
+
+.disclaimer-header {
+    top: 0;
+    padding: 20px 30px;
+}
+
+.menu-footer {
+    bottom: 0;
+    padding: 40px 20px;
+}
+
+/* メインコンテンツを「スクロールできる中央ペイン」に変更 */
+.main-content {
+    flex: 1;
+    height: 100vh;
+    padding-top: 100px;         /* ヘッダーの高さ分（免責事項の高さに合わせて調整） */
+    padding-bottom: 160px;      /* フッターの高さ分（メニューの高さに合わせて調整） */
+    overflow-y: auto;           /* ← ここだけスクロールできる！ */
+    -webkit-overflow-scrolling: touch; /* スマホでスムーズ */
+    box-sizing: border-box;
+}
+
+/* スマホ対応：paddingを小さく */
+@media (max-width: 768px) {
+    .main-content {
+        padding-top: 80px;      /* ヘッダー高さを少し縮める */
+        padding-bottom: 130px;  /* フッター高さを少し縮める */
+    }
+}
+
+@media (max-width: 480px) {
+    .main-content {
+        padding-top: 70px;
+        padding-bottom: 120px;
+    }
+}

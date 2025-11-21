@@ -5,79 +5,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>とある調査員のナゾトキ奇譚 - Case-α 帰ってきた花嫁</title>
     <link rel="stylesheet" href="css/style.css">
-<script>
-  // 子ページから戻ったときでもカウンターを取れるように、?from=sub を一時的に消す
-  if (location.search.includes('from=')) {
-    // URLをきれいにしてリロード（1回だけ）
-    history.replaceState(null, null, location.pathname);
-  }
 
-  // カウンター取得（これで確実に通る）
-  fetch('https://api.countapi.xyz/hit/ambrosestar.github.io-urban-myth-fanart/visitors')
-    .then(res => res.json())
-    .then(data => {
-      const count = data.value;
-      document.getElementById('kai-count').textContent = count.toLocaleString() + ' ';
-    })
-    .catch(err => {
-      console.error('カウンター取得失敗:', err);
-      document.getElementById('kai-count').textContent = '無数の';  // 本当に失敗したときだけ無数の
-    });
-</script>
+    <!-- ここから<head>内に追加（アニメ無効＋カウンター安定化の最終版） -->
+    <script>
+      // ① 子ページから戻ったときは全アニメーション無効＋URLクリーン
+      if (location.search.includes('from=')) {
+        document.documentElement.classList.add('no-entry-animation');
+        // URLの?from=subを即消去（fetchが失敗しないように）
+        history.replaceState(null, null, location.pathname);
+      }
+    </script>
+    <!-- ここまで追加 -->
 </head>
 <body class="index-page">
-    <!-- ヘッダー（免責事項） -->
+
+    <!-- ヘッダー -->
     <header class="disclaimer-header">
-    <div class="disclaimer-content delayed-appear">  <!-- ←ここにクラス追加 -->
-      <p class="jp-text">こちらはゲーム「都市伝説解体センター」の二次創作ファンアニメの公式HPです。実在するすべてのものと無関係です。</p>
-      <p class="en-text">This is the official homepage for a fan-made derivative anime based on the game 'Urban Legend Demolition Center.' It has no relation to any real entities.</p>
-    </div>
-  </header>
+      <div class="disclaimer-content delayed-appear">
+        <p class="jp-text">こちらはゲーム「都市伝説解体センター」の二次創作ファンアニメの公式HPです。実在するすべてのものと無関係です。</p>
+        <p class="en-text">This is the official homepage for a fan-made derivative anime based on the game 'Urban Legend Demolition Center.' It has no relation to any real entities.</p>
+      </div>
+    </header>
 
-    <!-- メインコンテンツ -->
-     
     <main class="main-content">
-    <div class="title-container">
-      <img src="assets/images/logo.png" alt="とある調査員のナゾトキ奇譚 Case-α 帰ってきた花嫁" class="title-logo">
-    </div>
+        <div class="title-container">
+            <img src="assets/images/logo.png" alt="とある調査員のナゾトキ奇譚 Case-α 帰ってきた花嫁" class="title-logo">
+        </div>
 
-    <div class="falling-text">
-      ？「おや、あなたは
-      <span id="kai-count">......</span>
-      人目の怪異のようですね…」
-    </div>
+        <div class="falling-text">
+          ？「おや、あなたは
+          <span id="kai-count">......</span>
+          人目の怪異のようですね…」
+        </div>
 
-    <script>
-      // カウンター取得が終わったら「登場開始」のクラスを付与（保険）
-      fetch('https://api.countapi.xyz/hit/ambrosestar.github.io-urban-myth-fanart/visitors')
-        .then(res => res.json())
-        .then(data => {
-          const count = data.value;
-          document.getElementById('kai-count').textContent = count.toLocaleString() + ' ';
+        <!-- ② カウンター取得スクリプト（これで子ページ戻りでも絶対失敗しない） -->
+        <script>
+          // 即実行（load待たなくてOK＋リトライ付き）
+          (function getCount() {
+            fetch('https://api.countapi.xyz/hit/ambrosestar.github.io-urban-myth-fanart/visitors')
+              .then(res => res.json())
+              .then(data => {
+                document.getElementById('kai-count').textContent = Number(data.value).toLocaleString() + ' ';
+              })
+              .catch(() => {
+                if ((getCount.retry = (getCount.retry || 0) + 1) < 4) {
+                  setTimeout(getCount, 800);
+                } else {
+                  document.getElementById('kai-count').textContent = '無数の';
+                }
+              });
+          })();
+        </script>
+    </main>
 
-          // カウンターのアニメーションが終わる頃（約2.5秒後）に確実に表示開始
-          setTimeout(() => {
-            document.querySelector('.disclaimer-content').style.animationPlayState = 'running';
-            document.querySelectorAll('.menu-item').forEach(item => {
-              item.style.animationPlayState = 'running';
-            });
-            document.querySelector('.title-logo').style.animationPlayState = 'running';
-          }, 2500);
-        })
-        .catch(() => {
-          document.getElementById('kai-count').textContent = '無数の';
-        });
-    </script>
-  </main>
-
-    <!-- フッター（メニュー） -->
+    <!-- フッター -->
     <footer class="menu-footer">
-    <nav class="main-menu">
-      <a href="atantion.html" class="menu-item"><img src="assets/images/Attention.avif" alt="Atantion" class="menu-icon"></a>
-      <a href="about.html" class="menu-item"><img src="assets/images/About.avif" alt="About Me" class="menu-icon"></a>
-      <a href="song.html" class="menu-item"><img src="assets/images/song.avif" alt="Image Song" class="menu-icon"></a>
-      <a href="animation.html" class="menu-item"><img src="assets/images/anime.avif" alt="Animation" class="menu-icon"></a>
-    </nav>
-  </footer>
+        <nav class="main-menu">
+            <a href="atantion.html?from=sub" class="menu-item"><img src="assets/images/Attention.avif" alt="Atantion" class="menu-icon"></a>
+            <a href="about.html?from=sub" class="menu-item"><img src="assets/images/About.avif" alt="About Me" class="menu-icon"></a>
+            <a href="song.html?from=sub" class="menu-item"><img src="assets/images/song.avif" alt="Image Song" class="menu-icon"></a>
+            <a href="animation.html?from=sub" class="menu-item"><img src="assets/images/anime.avif" alt="Animation" class="menu-icon"></a>
+        </nav>
+    </footer>
+
 </body>
 </html>

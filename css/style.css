@@ -588,6 +588,12 @@ html, body {
     /* アニメーション（1秒待機 + 2.8秒で全部動く） */
     animation: fallFadeIn 1.5s ease-out 1s forwards;
   }
+  .falling-text {
+  text-shadow: 
+    0 0 12px rgba(255, 255, 255, 0.35),
+    0 0 20px rgba(255, 255, 255, 0.2),
+    3px 3px 6px rgba(255, 255, 255, 0.25);  /* 少し浮いてる感じに */
+}
 
   #kai-count {
     color: #ff3366;
